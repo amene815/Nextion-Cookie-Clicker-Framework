@@ -81,9 +81,9 @@ int num_ovens;
 int num_printers;
 
 int finger_base_cost = 10;
-int monster_base_cost = 100;
-int oven_base_cost = 1000;
-int printer_base_cost = 10000;
+int monster_base_cost = 50;
+int oven_base_cost = 100;
+int printer_base_cost = 1000;
 
 int finger_cost;
 int monster_cost;
@@ -169,10 +169,10 @@ void loop() {
     num_monsters = 0;
     num_ovens = 0;
     num_printers = 0;
-    set_val(num_fingers, 0);
-    set_val(num_monsters, 0);
-    set_val(num_ovens, 0);
-    set_val(num_printers, 0);
+    set_val(number_fingers, 0);
+    set_val(number_monsters, 0);
+    set_val(number_ovens, 0);
+    set_val(number_printers, 0);
     set_val(num_cookies, 0);
     finger_cost = finger_base_cost;
     monster_cost = monster_base_cost;
@@ -273,6 +273,7 @@ void loop() {
             change_val(num_cookies, -oven_cost);
             change_val(number_ovens, 1);
             oven_cost = round(pow(price_scaler, num_ovens) * oven_base_cost);
+            set_val(oven_price, oven_cost);
             go_to_page(clicker);
           }
         }
@@ -290,6 +291,7 @@ void loop() {
             change_val(num_cookies, -finger_cost);
             change_val(number_printers, 1);
             printer_cost = round(pow(price_scaler, num_printers) * printer_base_cost);
+            set_val(printer_price, printer_cost);
             go_to_page(clicker);
           }
         }
