@@ -23,7 +23,7 @@ int finish_id = 3;
 //Clicker components
 
 String clicker_to_buildings = clicker +  "." + "BuildingsDoor";
-int clicker_to_buildings_id = 8;
+int clicker_to_buildings_id = 7;
 
 String cookie = clicker + "." + "Cookie";
 int cookie_id = 1;
@@ -71,7 +71,7 @@ int touch_press = 101;
 bool show_messages = true;
 int money;
 long start_time;
-float game_length = 2;
+float game_length = 1.5;
 
 float price_scaler = 1.1;
 
@@ -81,7 +81,7 @@ int num_ovens;
 int num_printers;
 
 int finger_base_cost = 10;
-int monster_base_cost = 50;
+int monster_base_cost = 42;
 int oven_base_cost = 100;
 int printer_base_cost = 1000;
 
@@ -197,10 +197,8 @@ void loop() {
 
       if (id == cookie_id) {
         if (event == touch_press) {
-          if (show_messages) {
-            Serial.println("Cookie pressed.");
-          }
-          myNextion.sendCommand((num_cookies + ".val+=" + String(1)).c_str());
+          if (show_messages) Serial.println("Cookie pressed.");
+          change_val(num_cookies, 1);
         }
       }
   
@@ -226,11 +224,7 @@ void loop() {
 
       if (id == finger_id) {
         if (event == touch_press) {
-          if (show_messages) {
-            Serial.println("Finger button pressed.");
-            Serial.println("Money: " + String(money));
-            Serial.println("Finger cost: " + String(finger_cost));
-          }
+          if (show_messages) Serial.println("Finger button pressed.");
           if (money >= finger_cost) {
             if (show_messages) Serial.println("Bought a finger.");
             num_fingers += 1;
@@ -245,16 +239,13 @@ void loop() {
 
       if (id == monster_id) {
         if (event == touch_press) {
-          if (show_messages) {
-            Serial.println("Monster button pressed.");
-            Serial.println("Money: " + String(money));
-          }
+          if (show_messages) Serial.println("Monster button pressed.");
           if (money >= monster_cost) {
             if (show_messages) Serial.println("Bought a monster.");
             num_monsters += 1;
             change_val(num_cookies, -monster_cost);
             change_val(number_monsters, 1);
-            monster_cost = round(pow(price_scaler, num_monsters) * monster_base_cost);
+            monster_cost = round(pow(1.0 / price_scaler, num_monsters) * monster_base_cost);
             set_val(monster_price, monster_cost);
             go_to_page(clicker);
           }
@@ -263,10 +254,7 @@ void loop() {
 
       if (id == oven_id) {
         if (event == touch_press) {
-          if (show_messages) {
-            Serial.println("Oven button pressed.");
-            Serial.println("Money: " + String(money));
-          }
+          if (show_messages) Serial.println("Oven button pressed.");
           if (money >= oven_cost) {
             if (show_messages) Serial.println("Bought an oven.");
             num_ovens += 1;
@@ -281,11 +269,8 @@ void loop() {
 
       if (id == printer_id) {
         if (event == touch_press) {
-          if (show_messages) {
-            Serial.println("Printer button pressed.");
-            Serial.println("Money: " + money);
-          }
-          if (money >= printer_cost) {
+          if (show_messages) Serial.println("Printer button pressed.");
+          if (money >= printer_cost | money == -42) {
             if (show_messages) Serial.println("Bought a printer.");
             num_printers += 1;
             change_val(num_cookies, -printer_cost);
