@@ -288,7 +288,7 @@ void loop() {
           if (money >= printer_cost) {
             if (show_messages) Serial.println("Bought a printer.");
             num_printers += 1;
-            change_val(num_cookies, -finger_cost);
+            change_val(num_cookies, -printer_cost);
             change_val(number_printers, 1);
             printer_cost = round(pow(price_scaler, num_printers) * printer_base_cost);
             set_val(printer_price, printer_cost);
