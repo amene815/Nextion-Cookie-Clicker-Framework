@@ -1,3 +1,1 @@
-The CookieClicker.ino is the fully-working Arduino code.
-The Cookie_clicker.HMI is the fully-working Nextion code.
-Have fun!
+A simple game, powered by an Arduino, to play on a Nextion touch screen. You have 90 seconds to get as many cookies as you can! Modeled after the online game on http://orteil.dashnet.org/cookieclicker/.
